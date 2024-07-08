@@ -23,6 +23,7 @@
 # read or edit them. :-)
 
 [Part (i)]   # Express ⊥; don't use connectives other than ∧, ∨, ¬, and ⊤
+!true
 
 
 
@@ -33,7 +34,7 @@
 
 
 [Part (ii)]  # Express p → q; don't use connectives other than ∧, ∨, ¬, and ⊤
-
+!p or q
 
 
 
@@ -43,7 +44,7 @@
 
 
 [Part (iii)] # Express p ↔ q; don't use connectives other than ∧, ∨, ¬, and ⊤
-
+(p and q) or (!p and !q)
 
 
 
@@ -53,7 +54,7 @@
 
 
 [Part (iv)]  # Express p ∨ q; don't use connectives other than ∧, ¬, and ⊤
-
+!(!p and !q)
 
 
 
@@ -63,7 +64,7 @@
 
 
 [Part (v)]   # Express ⊤; don't use connectives other than → and ⊥
-
+false -> false
 
 
 
@@ -73,7 +74,7 @@
 
 
 [Part (vi)]  # Express ¬p; don't use connectives other than → and ⊥
-
+p->false
 
 
 
@@ -83,6 +84,7 @@
 
 
 [Part (vii)] # Express p ∧ q; don't use connectives other than → and ⊥
+(p->(q->false))->false
 
 
 

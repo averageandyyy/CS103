@@ -36,11 +36,17 @@
 # with its negation. (Don't leave the original - the autograder is expecting to
 # only find the negated version.)
 
-∀p. (Person(p) →
-    ∃c. (Cat(c) ∧ Loves(p, c) ∧
-        ∀r. (Robot(r) → ¬Loves(c, r))
-    )
-)
+# ∀p. (Person(p) →
+#     ∃c. (Cat(c) ∧ Loves(p, c) ∧
+#         ∀r. (Robot(r) → ¬Loves(c, r))
+#     )
+# )
+
+exists p. (Person(p) and
+           forall c. (!Cat(c) or !Loves(p, c) or
+                      exists r. (Robot(r) and Loves(c, r))
+                     )
+          )
 
 
 
@@ -50,7 +56,9 @@
 # with its negation. (Don't leave the original - the autograder is expecting to
 # only find the negated version.)
 
-(∀x. (Person(x) ↔ ∃r. (Robot(r) ∧ Loves(x, r)))) → (∀r. ∀c. (Robot(r) ∧ Cat(c) → Loves(r, c)))
+# (∀x. (Person(x) ↔ ∃r. (Robot(r) ∧ Loves(x, r)))) → (∀r. ∀c. (Robot(r) ∧ Cat(c) → Loves(r, c)))
+
+(forall x. (Person(x) <-> exists r. (Robot(r) and Loves(x, r)))) and (exists r. exists c. (Robot(r) and Cat(c) and !Loves(r, c)))
 
 
 
@@ -60,12 +68,17 @@
 # with its negation. (Don't leave the original - the autograder is expecting to
 # only find the negated version.)
 
-∀c. (Cat(c) →
-    ∃r. (Robot(r) ∧
-        ∀x. (Loves(c, x) ↔ r = x)
-    )
-)
+# ∀c. (Cat(c) →
+#     ∃r. (Robot(r) ∧
+#         ∀x. (Loves(c, x) ↔ r = x)
+#     )
+# )
 
+exists c. (Cat(c) and
+           forall r. (!Robot(r) or
+                      exists x. (Loves(c, x) <-> x != r)
+                     )
+          )
 
 
 [Part (iv)]
@@ -74,9 +87,12 @@
 # with its negation. (Don't leave the original - the autograder is expecting to
 # only find the negated version.)
 
-∃x. (Cat(x) ∧
-    (∀r. (Loves(r, x) → Robot(r)) ∨ ∀p. (Loves(p, x) → Person(p)))
-)
+# ∃x. (Cat(x) ∧
+#     (∀r. (Loves(r, x) → Robot(r)) ∨ ∀p. (Loves(p, x) → Person(p)))
+# )
 
+forall x. (!Cat(x) or
+           (exists r. (Loves(r, x) and !Robot(r)) and exists p. (Loves(p, x) and !Person(p)))
+          )
 
 

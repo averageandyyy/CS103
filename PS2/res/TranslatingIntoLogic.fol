@@ -31,7 +31,7 @@
 # this file.
 
 [Part (i)]  # "Robots do not love."
-
+forall x. (Robot(x) -> forall y. !Loves(x, y))
 
 
 
@@ -41,8 +41,8 @@
 
 
 [Part (ii)]  # "Each robot loves every cat, but no cat loves any person."
-
-
+(forall r. (Robot(r) -> (forall c. (Cat(c) -> Loves(r, c))))) and
+(forall c. (Cat(c) -> (forall p. (Person(p) -> !Loves(c, p)))))
 
 
 
@@ -51,7 +51,7 @@
 
 
 [Part (iii)] # "Each cat only loves itself."
-
+forall c. (Cat(c) -> ((forall x. (x != c -> !Loves(c, x))) and (Loves(c, c))))
 
 
 
@@ -61,8 +61,10 @@
 
 
 [Part (iv)] # "if you pick a person, you’ll find that they love a cat if and only if they also love a robot."
+forall p. (Person(p) -> ((exists c. (Cat(c) and Loves(p, c))) <-> (exists r. (Robot(r) and Loves(p, r)))))
 
-
+# If you chose a person (every person), then you will find that there exists a cat they love if and only
+# if there also exists a robot they love.
 
 
 
@@ -72,6 +74,14 @@
 
 [Part (v)]   # "Each person loves exactly two cats and nothing else."
 
+forall p.(Person(p) ->
+          (exists c. exists d. (c != d and Cat(c) and Cat(d) and Loves(p, c) and Loves(p, d) and
+           forall x. ((x != c and x != d) -> !Loves(p, x)))
+          )
+         )
+
+# If you chose a person, then you will see that there exists 2 distinct cats c and d loved by p
+# such that for all other entities, p does not love them.
 
 
 
@@ -81,9 +91,9 @@
 
 
 [Part (vi)]  # "No two robots love exactly the same set of cats."
+forall r.(Robot(r) -> (forall q. ((q != r and Robot(q)) -> exists c. (Cat(c) and (Loves(r, c) <-> !Loves(q, c))))))
 
-
-
+# forall r. forall q. ((q != r and Robot(q) and Robot(r)) -> exists c. (Cat(c) and (Loves(r, c) <-> !Loves(q, c))))
 
 
 

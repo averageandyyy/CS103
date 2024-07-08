@@ -30,27 +30,32 @@
 
 
 # TODO: Delete this sample and put your own group in here.
+# Everyone has someone who loves them.
+# Everyone has someone who they don't love.
 
-Person(A)
-Person(B)
-Robot(C)
-Robot(D)
-Cat(E)
-
-Loves(A, B)
-Loves(C, B)
-Loves(D, E)
-Loves(A, E)
-Loves(D, C)
-
-
+# Person(A)
+# Person(B)
+# Robot(C)
+# Robot(D)
+# Cat(E)
+#
+# Loves(A, B)
+# Loves(C, B)
+# Loves(D, E)
+# Loves(A, E)
+# Loves(D, C)
+# Vacuosly true?!!
 
 
 
 
 
 [Part (ii)]  # ∀x. (Person(x) ∨ Cat(x)), but not (∀x. Person(x)) ∨ (∀x. Cat(x))
+# Every x is either a Person or a Cat
+# There exists some x that is not a Person AND there exists some x that is not a Cat.
 
+Person(A)
+Cat(B)
 
 
 
@@ -60,7 +65,13 @@ Loves(D, C)
 
 
 [Part (iii)] # (∃x. Robot(x)) ∧ (∃x. Loves(x, x)), but not ∃x. (Robot(x) ∧ Loves(x, x))
+# There exists some robot x and there exists some x that loves itself.
+# For all x, x is not a robot OR x does not love itself.
 
+Robot(A)
+Person(B)
+
+Loves(B, B)
 
 
 
@@ -72,7 +83,11 @@ Loves(D, C)
 
 
 [Part (iv)]  # (∀x. Cat(x)) → (∀y. Loves(y, y)), but not ∀x. ∀y. (Cat(x) → Loves(y, y))
+# If all x are cats, then all ys love themselves.
+# There exists some x and y such that x is a Cat and y does not love itself.
 
+Cat(A)
+Robot(B)
 
 
 
@@ -82,7 +97,13 @@ Loves(D, C)
 
 
 [Part (v)]  # ∃x. (Robot(x) → ∀y. Robot(y)), but not (∀x. Robot(x)) ∨ (∀x. ¬Robot(x))
+# There exists some x such that if x is a robot, then for all y, y is a robot.
+# We can translate the above with help of some negation.
+# There exists some x such that x is either not a Robot or all ys are Robots. Just satisfy 1!
+# There exists some x which is not a Robot AND there exists some x which is a Robot.
 
+Cat(A)
+Robot(B)
 
 
 
