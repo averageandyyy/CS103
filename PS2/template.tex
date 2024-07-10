@@ -44,7 +44,7 @@
 }
 
 \title{CS 103: Mathematical Foundations of Computing\\Problem Set \#2}
-\author{[TODO: Replace this with your name(s)]}
+\author{Cheng Jia Wei Andy, Xiang Qiuyu}
 \date{\today}
 
 % Running author based on https://tex.stackexchange.com/questions/68308/how-to-add-running-title-and-author#answer-68310
@@ -185,14 +185,10 @@ Here are some symbols that may be useful for this PSet. If you are using \LaTeX,
     iii.
     \begin{shaded}
         \begin{itemize}
-            \item
-                Evaluating $T_{0}$:
-                    \begin{itemize}
                         \item 
                             Since there are no statements after $T_{9,999,999,999}$, this statement is vacuosly true.
                         \item 
                             Any statement $T_{n}$, where $0<=n<9,999,999,999$, is false, since if they were true, it must mean that $T_{9,999,999,999}$ is false, which is impossible since as mentioned earlier, it is vacuosly true.
-                    \end{itemize}
         \end{itemize}
     \end{shaded}
 
@@ -217,9 +213,9 @@ Here are some symbols that may be useful for this PSet. If you are using \LaTeX,
             \item 
                 Theorem: If $S$ is a hereditary set, then $\powerset{S}$ is also a hereditary set.
             \item 
-                Proof: Assume that $S$ is a hereditary set. We wish to prove that $\powerset{S}$ is a hereditary set. To do so, we need to show that any $y\in \powerset{S}$ is a hereditary set.
-            \item
-                Since $S$ is a hereditary set, any $x\in S$ is also a hereditary set. Since any $x\in S$ is a hereditary set, any subset of $S$ is also a hereditary set. And since $\powerset{S}$ produces the set whose elements are all possible subsets of $S$, which are themselves hereditary sets, any $y\in \powerset{S}$ is also a hereditary set, which is what we wanted to show. $\blacksquare$ \hl{Check for repeating definition.}
+                Proof: Pick an arbitrary set $S$ such that $S$ is a hereditary set. We want to show that $\powerset{S}$ is also a hereditary set. To do so, we need to show that any $y\in \powerset{S}$ is a hereditary set.
+            \item 
+                Pick an arbitrary $y\in \powerset{S}$. Since $y\in \powerset{S}$, $y$ must be a subset of $S$. Pick an arbitrary $x\in y$. Since $x\in y$, $x \in S$, which means that $x$ must also be a hereditary set. Since for all $x\in y$ is a hereditary set, y must also be a hereditary set. Therefore, any arbitrary $y\in \powerset{S}$ must also be a hereditary set, which is what we wanted to show. $\blacksquare$
         \end{itemize}
     \end{shaded}
     
@@ -240,11 +236,12 @@ Here are some symbols that may be useful for this PSet. If you are using \LaTeX,
             \item 
                 Theorem: If player $c$ won more games than anyone else in $T$ or is tied for winning the greatest number of games, then $c$ is a tournament champion.
             \item
-                Proof: Assume for the sake of contradiction that there exists a player $c$ such that $c$ won more games or is tied for winning the greatest number of games and $c$ is not a tournament champion.
+                Proof: Assume for the sake of contradiction that there exists a tournament $T$ such that there exists a player $c$ where c either won the most games in $T$ or is tied for winning the most games and $c$ is not a champion.
             \item 
-                Since $c$ is not a champion, there must exist a player $p$ such that $p$ beat $c$ and for any other player $q$, $q$ beat $c$ or $p$ beat $q$. Assume that the tournament now only consists of the two players $p$ and $c$. Since $c$ is not a champion, $p$ beat $c$. This must mean that $p$ has more wins than $c$, which is impossible since earlier we assumed that $c$ must have either won the most games or is tied for the greatest number of wins. We have arrived at a contradiction, which means our inital assumption must have been wrong.
-            \item 
-                Therefore, if player $c$ won the most games or is tied for the most number of wins, then $c$ is a tournament champion. $\blacksquare$
+                Let the number of games that $c$ won be an arbitrary natural number $x$. 
+                Since $c$ is not a tournament champion, there must exist a player $p$ such that $p$ won against $c$ and for every other player $q$, if $c$ won against $q$ then $p$ won against $q$. This implies that player $p$ has $x+1$ wins.
+            \item
+                This is impossible, due to earlier assumption that $c$ must have either the most wins or is tied for the most wins. We have arrived at a contradiction and hence, our assumption must have been wrong. Therefore, if player $c$ won more games or is tied for winning the most number of games, then $c$ is a tournament champion. $\blacksquare$
         \end{itemize}
     \end{shaded}
     
