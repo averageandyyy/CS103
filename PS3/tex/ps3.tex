@@ -1,0 +1,468 @@
+%
+% LaTeX Problem Set Template originally designed
+% by former CS103 TA Sachin Padmanabhan, with updates,
+% edits, and simplifications by the lovely folks below.
+%
+% Updated for Fall 2018 by Michael Zhu
+% Updated for Fall 2019 by Joshua Spayd
+% Updated for Fall 2020 by Lucy Lu
+% Updated for Winter/Spring 2021 by Cynthia Bailey Lee
+% Updated for Fall 2021 by Grant McClearn
+% Commands slimmed down and simplified in Fall 2022 by Keith Schwarz
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathdots}
+\usepackage{braket}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{listings}
+\PassOptionsToPackage{usenames,dvipsnames}{color}  %% Allow color names
+\usepackage{pdfpages}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+\usepackage{framed}
+\usepackage{wasysym}
+\usepackage[thinlines]{easytable}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+
+\title{CS 103: Mathematical Foundations of Computing\\Problem Set \#3}
+\author{Cheng Jia Wei Andy, Xiang Qiuyu}
+\date{\today}
+
+% Running author based on https://tex.stackexchange.com/questions/68308/how-to-add-running-title-and-author#answer-68310
+\makeatletter
+\let\runauthor\@author
+\makeatother
+
+\lhead{\runauthor}
+\chead{Problem Set 3}
+\rhead{\today}
+\lfoot{}
+\cfoot{CS 103: Mathematical Foundations of Computing --- Summer 2024}
+\rfoot{\thepage}
+
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\pd}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\powerset}[1]{\wp\left(#1\right)}
+\newcommand{\suchthat}{\ \vert \ }
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\reals}{\mathbb{R}}
+\renewcommand{\qed}{\blacksquare}
+\newcommand{\accepts}{\text{ accepts }}
+\newcommand{\rejects}{\text{ rejects }}
+\newcommand{\loopson}{\text{ loops on }}
+\newcommand{\haltson}{\text{ halts on }}
+\newcommand{\encoded}[1]{\left\langle#1\right\rangle}
+\newcommand{\rlangs}{\mathbf{R}}
+\newcommand{\relangs}{\mathbf{RE}}
+\newcommand{\corelangs}{\text{co-}\mathbf{RE}}
+\newcommand{\plangs}{\mathbf{P}}
+\newcommand{\nplangs}{\mathbf{NP}}
+
+\renewcommand{\labelitemii}{$\bullet$}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newenvironment{prf}{{\bfseries Proof.}}{\qedsymbol}
+\renewcommand{\emph}[1]{\textit{\textbf{#1}}}
+\newcommand{\annotate}[1]{\textit{\textcolor{blue}{#1}}}
+\usepackage{mdframed}
+\usepackage{float}
+
+\makeatother
+
+\definecolor{shadecolor}{gray}{0.95}
+
+\theoremstyle{plain}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{plain}
+\newtheorem*{claim}{Claim}
+
+\theoremstyle{definition}
+\newtheorem*{answer}{Answer}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{thm}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\setlength{\parindent}{0pt}
+
+\pagestyle{fancy}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\usepackage{boxedminipage}
+\newenvironment{blank}{\colorbox{shadecolor}{\strut \underline{\ \ \ \ \ }}}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+  \emph{Due Friday, July 19 at 5:30 pm Pacific}
+\end{center}
+
+\vspace{1cm}
+
+Problem One is autograded. You won't include your answers to that problem here.
+
+\section*{Symbols Reference}
+Here are some symbols that may be useful for this problem set. If you are using \LaTeX, view this section in the template file (the code in \texttt{ps3-latex-template.tex}, not the PDF) and copy-paste math code snippets from the list below into your responses, as needed. If you are typing your problem set in another program such as Microsoft Word, you should be able to copy some of the symbols below from this PDF and paste them into your program. Unfortunately the symbols with a slash through them (for ``not'') and font formats such as exponents don't usually copy well from PDF, but you may be able to type them in your editor using its built-in tools.
+\begin{itemize}
+    \item $f$ is a function from $A$ to $B$: $f : A \to B$.
+\end{itemize}
+
+\LaTeX typing tips:
+\begin{itemize}
+    \item Set (curly braces need an escape character backslash): ${1, 2, 3}$ (incorrect), $\{1, 2, 3\}$ (correct)
+    \item Exponents (use curly braces if exponent is more than 1 character): $x^2$, $2^{3x}$
+    \item Subscripts (use curly braces if subscript is more than 1 character): $x_0$, $x_{10}$
+\end{itemize}
+
+\newpage
+
+\section*{Problem Two: Strictly Increasing Functions}
+    i.
+    \begin{shaded}
+        The function $f:\mathbb{Z}\to\mathbb{Z}$ defined as $f(x)=x^{2}$ is not strictly increasing.
+
+        \vspace{4mm}
+
+        The function $f$ defined as $f(x)=x^{3}$ is also not strictly increasing.
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        Proof: Let $h=g\circ f$. We want to show that $h$ is strictly increasing. To do so, pick arbitrary $x,y\in\mathbb{Z}$ where $x<y$. We need to show that $h(x)<h(y)$. Since $x<y$ and $f$ is strictly increasing, then $f(x)<f(y)$.
+
+        \vspace{4mm}
+
+        Since $f(x),f(y)\in\mathbb{Z}$, $f(x)<f(y)$ and $g$ is strictly increasing, then $g(f(x))<g(f(y))$. In other words, we can see that $h(x)<h(y)$, given that $g(f(x))<g(f(y))$, which is what we wanted to show. $\blacksquare$
+    \end{shaded}
+    
+    iii.
+    \begin{shaded}
+        Proof: We want to show that $f$ is injective. To do so, pick arbitrary $x,y\in\mathbb{Z}$ where $x\neq y$. We want to show that $f(x)\neq f(y)$.
+
+        \vspace{4mm}
+
+        Assume, without loss of generality, that $x<y$. Since $f$ is strictly increasing and $x<y$, then $f(x)<f(y)$. Therefore, we can see that $f(x)\neq f(y)$, which is what we wanted to show. $\blacksquare$
+    \end{shaded}
+    
+    iv.
+    \begin{shaded}
+        Proof: We to show that if $f(x)=y$ and $f(y)=x$, then $x=y$.
+
+        Assume for the sake of contradiction that $f(x)=y$, $f(y)=x$ and $x\neq y$.
+        
+        \vspace{4mm}
+
+        Since $x\neq y$, assume, without loss of generality, that $x<y$. Since $f$ is strictly increasing, then $f(x)<f(y)$. Since $f(x)<f(y)$, it implies that $y<x$.
+       
+        \vspace{4mm}
+
+        However, this is impossible due to our earlier assumption that $x<y$. We have arrived at a contradiction, which must mean that our initial assumption is wrong. Therefore, if $f(x)=y$ and $f(y)=x$, then $x=y$. $\blacksquare$
+    \end{shaded}
+    
+\newpage
+
+\section*{Problem Three: Independent and Dominating Sets}
+    i.
+    \begin{shaded}
+        $D=\{b,c,f,g\}$
+
+        $D=\{e,g,c\}$
+
+        Every vertex is either in $D$ or has a connection to a vertex in $D$.
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        Proof: Pick an arbitrary set $I$ such that $I$ is an independent set in G. We want to show that $V-I$ is a dominating set in $G$. To do so, pick an arbitrary $v\in V$ such that $v\notin V-I$. We want to show that there exists some $u\in V-I$ such that $\{u,v\}\in E$.
+
+        \vspace{4mm}
+
+        Assume for the sake of contradiction that there does not exist such a $u\in V-I$ where $\{u,v\}\in E$. Since $v\in V$ but $v\notin V-I$, this implies that $v\in I$. Since $v\in I$, $v$ is not connected to any other vertex in $I$. This, coupled with our above assumption that $v$ is not connected to any $u\in V-I$, this implies that $v$ is not connected to any vertex in $V$.
+
+        \vspace{4mm}
+
+        This is impossible due to the premise of the question being that every vertex is connected to at least one other vertex in $V$. We have arrived at a contradiction and thus our assumption must have been wrong. Therefore, if $I$ is an independent set in $G$, then $V-I$ is a dominating set in $G$. $\blacksquare$
+    \end{shaded}
+    
+    iii.
+    \begin{shaded}
+        $I=\{e, g, d\}$
+
+        $J=\{a, f, c, h\}$
+    \end{shaded}
+    
+    iv.
+    \begin{shaded}
+        Proof: Assume that $I$ is a maximal independent set in $G=(V,E)$. We need to show that $I$ is a dominating set in $G$. To do so, pick an arbitrary node $v\in V$ such that $v\notin I$. We will show that there exists a $u\in I$ where $\{u,v\}\in E$.
+
+        \vspace{4mm}
+
+        Assume for the sake of contradiction that there does not exist a $u\in I$ where $\{u,v\}\in E$. Equivalently, this means that for any $u\in I$, $u$ and $v$ are not connected. Since $v$ is not connected to any $u\in I$ and $v\notin I$, it implies there exists an independent set $I'$, such that $I\subseteq I'$ and $I'-I=\{v\}$, which means that $I$ is not a maximal independent set. This is impossible due to our earlier assumption that $I$ is a maximal independent set.
+
+        \vspace{4mm}
+
+        We have arrived at a contradiction, which means our initial assumption must have been wrong. Therefore, if $I$ is a maximal independent set in $G$, then $I$ is also a dominating set in $G$. $\blacksquare$
+        % Check if we can say any u like this or must we pick arbitrary u?
+    \end{shaded}
+    
+\newpage
+
+\section*{Problem Four: Left and Right Inverses}
+    i.
+    \begin{shaded}
+        Suppose $f:A\to B$, where $A=\{1,2\}$ and $B=\{3,4,5\}$, is defined as follows: $f(1)=3$ and $f(2)=4$.
+
+        \vspace{4mm}
+
+        Suppose we have $g:B\to A$ and $h:B\to A$, where $g(3)=1,g(4)=2,g(5)=1$ and $h(3)=1,h(4)=2,h(5)=2$.
+
+        \vspace{4mm}
+
+        We see that $g$ is a left inverse of $f$, since $g(f(1))=g(3)=1$ and $g(f(2))=g(4)=2$. The function $h$ also follows a similar argument/observation and is thus also a left inverse of $f$.
+
+        \vspace{4mm}
+
+        $h$ and $g$ differ in their outputs when the input is $5$, with $h(5)=2$ and $g(5)=1$. Hence, $h$ and $g$ are different left inverses of $f$.
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        Proof: Pick an arbitrary function $f:A\to B$ such that $f$ has a left inverse. We want to show that $f$ is injective. To do so, choose arbitrary $x_{1},x_{2}\in A$ such that $f(x_{1})=f(x_{2})$. We need to show that $x_{1}=x_{2}$.
+
+        \vspace{4mm}
+
+        Since $f$ has a left inverse, there exists a function $g:B\to A$ such that for any $a\in A$, $g(f(a))=a$. Since functions are deterministic and $f(x_{1})=f(x_{2})$, then $g(f(x_{1}))=g(f(x_{2}))=x_{1}=x_{2}$, which is what we wanted to show. $\blacksquare$
+    \end{shaded}
+    
+    iii.
+    \begin{shaded}
+        Suppose $f:A\to B$, where $A=\{1,2,10,11\}$ and $B=\{1,2,4\}$, is defined as follows: $f(1)=1,f(2)=2,f(10)=4,f(11)=4$.
+
+        \vspace{4mm}
+
+        Suppose we have $g:B\to A$ and $h:B\to A$, where $g(1)=1,g(2)=2,g(4)=10$ and $h(1)=1,h(2)=2,h(4)=11$.
+
+        \vspace{4mm}
+
+        We see that $g$ is a right inverse of $f$, since $f(g(1))=f(1)=1,f(g(2))=f(2)=2,f(g(4))=f(10)=4$. The function $h$ also follows a similar argument/observation and is thus also a right inverse of $f$.
+
+        \vspace{4mm}
+
+        $h$ and $g$ differ in their outputs when the input is 4, with $h(4)=11$ and $g(4)=10$. Hence, they are different right inverses.
+    \end{shaded}
+    
+    iv.
+    \begin{shaded}
+        % Check for repeating definition
+        Proof: Pick an arbitrary function $f:A\to B$ such that $f$ has a right inverse, that is, there exists a function $g:B\to A$ such that for any $b\in B$, $f(g(b))=b$. We want to show that $f$ is surjective. To do so, pick an arbitrary $b\in B$. We need to show that there exists a $a\in A$ such that $f(a)=b$. Pick $a=g(b)$.
+
+        \vspace{4mm}
+
+        Since $a\in A$ and $g$ is a right inverse of $f$, then $f(a)=f(g(b))=b$, which is what we wanted to show. $\blacksquare$
+
+        % Check mugga mugga
+
+        % Since $g$ is a function with domain $B$, $b\in B$ and codomain $A$, there exists a $k\in A$ such that $k=g(b)$. Since $g$ is the right inverse of $f$, then $f(g(b))=f(k)=b$. We see that there exists such a $a\in A$, more specifcally $a=k$, where $f(a)=b$, which is what we wanted to show. $\blacksquare$
+    \end{shaded}
+    
+\newpage
+
+\section*{Problem Five: True Inverses}
+
+    \begin{shaded}
+        % Explain why proof wont work with just left/right inverses.
+
+        Proof: Pick an arbitrary function $f:A\to B$ such that $g_{1}:B\to A$ and $g_{2}:B\to A$ are inverses of $f$. Pick an arbitrary $b\in B$. We want to show that $g_{1}(b)=g_{2}(b)$.
+
+        \vspace{4mm}
+
+        Assume for the sake of contradiction that $g_{1}(b)\neq g_{2}(b)$, that is, there exists $q,r\in A$, where $q\neq r$, $g_{1}(b)=q$ and $g_{2}(b)=r$. Since $g_{1}$ and $g_{2}$ are inverses of $f$, then $f(g_{1}(b))=f(q)=b=f(r)=f(g_{2}(b))$. Since $g_{1}$ and $g_{2}$ are inverses of $f$ and $f(q)=b$, this also implies that $g_{1}(f(q))=g_{1}(b)=q=g_{2}(b)=g_{2}(f(q))$. In other words, we see that $g_{1}(b)=g_{2}(b)$.
+
+        \vspace{4mm}
+
+        We know that this is impossible due to our assumption that $g_{1}(b)\neq g_{2}(b)$. We have arrived at a contradiction and thus, our initial assumption must have been wrong. Therefore, if $f:A\to B$ is a function and $g_{1}:B\to A$ and $g_{2}:B\to A$ are inverses of $f$, then for any $b\in B$, $g_{1}(b)=g_{2}(b)$. $\blacksquare$
+    \end{shaded}
+
+\section*{Problem Six: Bipartite Graphs}
+    i.
+    \begin{shaded}
+        We denote the top left corner of the chessboard to be $A1$ and the bottom right corner of the board to be $H8$. Assuming a conventional chessboard and taking $A1$ to be a black tile, the bipartite classes are then the black tiles and the white tiles on the chessboard.
+
+        \vspace{4mm}
+
+        We can see from the chessboard that any white tile can only to travel in the cardinal directions as defined to adjacent black tiles. Similarly, the black tiles can only travel in the cardinal directions to adjacent white tiles. We are unable, with just the cardinal directions, go from a black tile to another black tile in one move. The same idea holds for white tiles. 
+
+        \vspace{4mm}
+        
+        Viewing the tiles as nodes and moves in the cardinal directions as edges between nodes, if we were to let $V_{1}$ be the set of nodes representing the black tiles and $V_{2}$ be the set of nodes representing the white tiles, we can see that the edges only exist across $V_{1}$ and $V_{2}$, between nodes in $V_{1}$ and $V_{2}$. Within each class, there are no edges between the nodes as explained earlier, it is impossible to move from a tile of a particular color to that of the same color in just one move in any of the cardinal directions. Edges only exist between black and white tiles.
+
+        \vspace{4mm}
+
+        Hence, the chessboard represented as a undirected graph $G$ is bipartite with bipartite classes $V_{1}$ and $V_{2}$ being the sets of nodes representing the black and white tiles respectively. Edges only exists between nodes of $V_{1}$ and $V_{2}$, that every edge $e$ has one endpoint in $V_{1}$ and $V_{2}$, given that only single moves in cardinal directions to and fro different colored tiles are valid.
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        For a closed walk starting from $a\in V_{1}$, we claim that we require even moves to return to $a$. Since a closed walk cannot be of length $0$, there must exist a $b\in V_{2}$ such that $\{a,b\}\in E$.
+
+        \vspace{4mm}
+
+        Intutively, we see that the closed walk must be of at least length 2, with the walk being $a\to b\to a$. Suppose we go to and fro an infinite number of times, we can see intutively that the length of the closed walk must be a multiple of length 2, that is, it is even.
+
+        \vspace{4mm}
+
+        Essentially, to move from $V_{1}$ to $V_{2}$ back to $V_{1}$, and vice versa,will always require an even number of moves. This is because the return to $V_{1}$ requires us to always move through $V_{2}$. We are unable to traverse across nodes internally in each bipartite class. The length of the closed walk is always a multiple of 2 and is thus always even.
+    \end{shaded}
+    
+    iii.
+    \begin{shaded}
+        Proof: We want to show that $V_{1}$ and $V_{2}$ have no nodes in common. Assume for the sake of contradiction that there exists a node $v\in V$ such that $v\in V_{1}$ and $v\in V_{2}$.
+
+        \vspace{4mm}
+
+        Since $v\in V_{1}$, there exists an odd-length walk of length $a$, where there exists some natural number $q$ such that $a=2q+1$, from $x$ to $v$.
+
+        Similarly, since $v\in V_{2}$, there exists an even-length walk of length $b$, where there exists some natural number $r$ such that $b=2r$, from $x$ to $v$.
+
+        \vspace{4mm}
+
+        Since there exists both an even-length and odd-length walk from $x$ to $v$, there exists a closed walk from $x$ back to $x$ through $v$, such that the length of the closed walk is given by $a+b=2q+2r+1=2(q+r)+1$. We see that there exists an odd-length closed walk of length $2s+1$, where $s=q+r$, in $G$, which is impossible since earlier it was chosen such that $G$ had no closed walks of odd length.
+
+        \vspace{4mm}
+
+        We have arrived at a contradiction and thus our assumption must have been wrong. Therefore, $V_{1}$ and $V_{2}$ have no nodes in common. $\blacksquare$
+    \end{shaded}
+    
+    iv.
+    \begin{shaded}
+        Proof: We want to show that $G$ is bipartite. To do so, pick an arbitrary $v\in V$ and an arbitrary $e\in E$. We need to show that $v$ either belongs to at least one of $V_{1}$ and $V_{2}$, $v$ does not belong to both $V_{1}$ and $V_{2}$ and $e$ has one endpoint in $V_{1}$ and the other in $V_{2}$.
+
+        \vspace{4mm}
+
+        Since $G$ only has one connected component and our earlier choice of $x$, if there exists an odd-length walk from $x$ to $v$, then $v\in V_{1}$. Similarly, if there exists an even-length walk from $x$ to $v$, then $v\in V_{2}$. Therefore, $v$ belongs to at least one of $V_{1}$ and $V_{2}$.
+        
+        there can exist either an odd-length walk from $x$ to $v$, an even-length walk from $x$ to $v$ or both. This implies that $v$ belongs to at least one of $V_{1}$ and $V_{2}$.
+
+        \vspace{4mm}
+
+        In iii, we proved that $V_{1}$ and $V_{2}$ do not have any nodes in common, which implies that $v$ does not belong to both $V_{1}$ and $V_{2}$.
+
+        \vspace{4mm}
+
+        To show that $e$ has one endpoint in $V_{1}$ and the other in $V_{2}$, we need to show that any $v'\in V$ adjacent to $v$, $v'$ belongs the set that $v$ does not. 
+
+        \vspace{4mm}
+
+        Since $v$ belongs to at least one of $V_{1}$ and $V_{2}$ but not both, then $v$ belongs to exactly one of $V_{1}$ and $V_{2}$. Assume that $v\in V_{1}$. This implies that for any $v'\in V$ adjacent to $v$, there exists an even-length walk, through $v$, from $x$ to $v'$, which implies that $v'$ must be in $V_{2}$.
+
+        \vspace{4mm}
+
+        Now, assume that $v\in V_{2}$. This then implies that for any $v'\in V$ adjacent to $v$, there exists an odd-length walk, through $v$, from $x$ to $v'$, which means that $v'$ must be in $V_{1}$.
+
+        \vspace{4mm}
+
+        In both cases, we see that nodes adjacent to $v$ belong to the set that $v$ is not in, which was what we wanted to show.
+
+        \vspace{4mm}
+
+        % Assume for the sake of contradiction and without loss of generality, $e$ has one endpoint in $V_{1}$ and the other in $V_{1}$ as well. This implies that there exists $v_{1},v_{2}\in V_{1}$, such that $\{v_{1},v_{2}\}=e$. Since $v_{1}, v_{2}\in V_{1}$, there exists an odd-length walk from $x$ to $v_{1}$ and $v_{2}$, respectively. Since there exists $e$ connects $v_{1},v_{2}$, we see that there also exists an even-length walk from $x$ to $v_{2}$, by going through $v_{1}$, and for $x$ to $v_{1}$ as well, by going through $v_{1}$. This implies that $v_{1},v_{2}\in V_{2}$, which is impossible as we have shown earlier that $V_{1}$ and $V_{2}$ have no nodes in common. We have arrived at a contradiction, which means our initial assumption must have wrong. Therefore, $e$ cannot have both endpoints in $V_{1}$.
+
+        % We can employ a similar argument which shows that $e$ cannot have both endpoints in $V_{2}$, since that would allow for walks of odd-length between $x$ and any $v\in V_{2}$, implying that $v\in V_{2}$ and $v\in V_{1}$ simultaneously, which is impossible.
+
+        % Therefore, $e$ can only have one endpoint in $V_{1}$ and the other in $V_{2}$.
+
+        We have thus shown that every $v\in V$ belongs to at least one of $V_{1}$ and $V_{2}$ but not both and that every $e\in E$ has one endpoint in $V_{1}$ and the other in $V_{2}$, which implies that $G$ is bipartite, as required. $\blacksquare$ 
+    \end{shaded}
+
+\section*{Optional Fun Problem: Infinity Minus Two}
+\begin{shaded}
+    We define $f:[0,1]\to (0,1)$ as follows:
+    \[
+        f(x) = 
+        \begin{cases}
+           \frac{1}{2} & \text{if } x = 0 \\
+           \frac{1}{2^{k+2}} & \text{if } x = \frac{1}{2^{k}},\ k\in\mathbb{N} \\
+           x & \text{otherwise}
+        \end{cases}
+    \]
+    We wish to show that $f$ is bijective, that is, $f$ is both injective and surjective.
+
+    \vspace{4mm}
+
+    To show that $f$ is injective, we need to show that it is injective across the 3 cases. Choose arbitrary $x_{1},x_{2}\in[0,1]$. Consider $f(x_{1})=f(x_{2})=\frac{1}{2}$. It is obvious that the only choice of input is 0, thus, $x_{1}=x_{2}=0$.
+
+    \vspace{4mm}
+
+    Suppose now $f(x_{1})=f(x_{2})=\frac{1}{2^{k_{1}+2}}=\frac{1}{2^{k_{2}+2}}$. Rearranging the equations, we get that $k_{1}=\log_{2}(\frac{1}{x_{1}})$ and $k_{2}=\log_{2}(\frac{1}{x_{2}})$. Substituiting the $k$s and working out the equality, we get $\frac{4}{x_{1}}=\frac{4}{x_{2}}$. It is obvious then that $x_{1}=x_{2}$. $x\in[0,1]$ satisfies the requirement that $k\in\mathbb{N}$, we can see this if we plot the graph of $k=\log_{2}(\frac{1}{x})$ with domain $(0,1]$.
+
+    \vspace{4mm}
+
+    For the last case, we can see trivially that $f(x_{1})=f(x_{2})=x_{1}=x_{2}$. For all 3 cases, we see that $x_{1}=x_{2}$ as required, hence $f$ is injective.
+
+    \vspace{4mm}
+
+    To show that $f$ is surjective, we need to show that for every possible output in $(0,1)$, there is at least one corresponding input in $[0,1]$.
+
+    \vspace{4mm}
+
+    Consider the output $y$ of the form $\frac{1}{2^{n}}$, where $n\in\mathbb{Z}$ and $n\geq2$. Intutively, we see that $y\in(0,1)$ and hence is a valid output.
+    $$
+        \begin{aligned}
+            \frac{1}{2^{n}} &= \frac{1}{2^{k+2}} \\
+            2^{n} &= 2^{k+2} \\
+            n &= k+2 \\
+            n &=\log_{2}(\frac{1}{x}) + 2 \\
+            2^{n-2} &= \frac{1}{x} \\
+            x &= \frac{1}{2^{n-2}}
+        \end{aligned}
+    $$
+    We see that for every $y$ of the form $\frac{1}{2^{n}}$ as defined, there is a corresponding input $x\in[0,1]$.
+
+    \vspace{4mm}
+
+    Suppose $n=1$, then the corresponding input for $y=\frac{1}{2}$ is 0, as defined by the function itself. No need to conisder the case for $n=0$, since $y=1$ is not a valid output to consider.
+
+    \vspace{4mm}
+
+    If $y$ is not of the above defined form, then the corresponding input $x=y$, with $x\in[0,1]$, since $y\in(0,1)$.
+
+    \vspace{4mm}
+
+    Since every output $y\in(0,1)$ has a corresponding input $x\in[0,1]$, the function $f$ is surjective. Seeing that $f$ is injective and surjective, $f$ is bijective, as required.
+
+    \vspace{4mm}
+
+    P.S. Just in case, it is not obvious, 1 is a valid input. $1=2^{k},k=0,y=\frac{1}{4}$.
+\end{shaded}
+    
+\end{document}/staff/ps3

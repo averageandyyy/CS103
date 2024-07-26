@@ -1,0 +1,381 @@
+%
+% LaTeX Problem Set Template originally designed
+% by former CS103 TA Sachin Padmanabhan, with updates,
+% edits, and simplifications by the lovely folks below.
+%
+% Updated for Fall 2018 by Michael Zhu
+% Updated for Fall 2019 by Joshua Spayd
+% Updated for Fall 2020 by Lucy Lu
+% Updated for Winter/Spring 2021 by Cynthia Bailey Lee
+% Updated for Fall 2021 by Grant McClearn
+% Commands slimmed down and simplified in Fall 2022 by Keith Schwarz
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathdots}
+\usepackage{braket}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{listings}
+\PassOptionsToPackage{usenames,dvipsnames}{color}  %% Allow color names
+\usepackage{pdfpages}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+\usepackage{framed}
+\usepackage{wasysym}
+\usepackage[thinlines]{easytable}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+
+\title{CS 103: Mathematical Foundations of Computing\\Problem Set \#4}
+\author{[Cheng Jia Wei Andy, Xiang Qiuyu]}
+\date{\today}
+
+% Running author based on https://tex.stackexchange.com/questions/68308/how-to-add-running-title-and-author#answer-68310
+\makeatletter
+\let\runauthor\@author
+\makeatother
+
+\lhead{\runauthor}
+\chead{Problem Set 4}
+\rhead{\today}
+\lfoot{}
+\cfoot{CS 103: Mathematical Foundations of Computing --- Summer 2024}
+\rfoot{\thepage}
+
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\pd}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\powerset}[1]{\wp\left(#1\right)}
+\newcommand{\suchthat}{\ \vert \ }
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\reals}{\mathbb{R}}
+\renewcommand{\qed}{\blacksquare}
+\newcommand{\accepts}{\text{ accepts }}
+\newcommand{\rejects}{\text{ rejects }}
+\newcommand{\loopson}{\text{ loops on }}
+\newcommand{\haltson}{\text{ halts on }}
+\newcommand{\encoded}[1]{\left\langle#1\right\rangle}
+\newcommand{\rlangs}{\mathbf{R}}
+\newcommand{\relangs}{\mathbf{RE}}
+\newcommand{\corelangs}{\text{co-}\mathbf{RE}}
+\newcommand{\plangs}{\mathbf{P}}
+\newcommand{\nplangs}{\mathbf{NP}}
+
+\renewcommand{\labelitemii}{$\bullet$}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newenvironment{prf}{{\bfseries Proof.}}{\qedsymbol}
+\renewcommand{\emph}[1]{\textit{\textbf{#1}}}
+\newcommand{\annotate}[1]{\textit{\textcolor{blue}{#1}}}
+\usepackage{mdframed}
+\usepackage{float}
+
+\makeatother
+
+\definecolor{shadecolor}{gray}{0.95}
+
+\theoremstyle{plain}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{plain}
+\newtheorem*{claim}{Claim}
+
+\theoremstyle{definition}
+\newtheorem*{answer}{Answer}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{thm}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\setlength{\parindent}{0pt}
+
+\pagestyle{fancy}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\usepackage{boxedminipage}
+\newenvironment{blank}{\colorbox{shadecolor}{\strut \underline{\ \ \ \ \ }}}
+
+\begin{document}
+
+\maketitle
+
+\maketitle
+
+\begin{center}
+  \emph{Due Friday, July 28th at 4:00 pm Pacific} \\
+  \emph{Late Due Date Sunday, July 30th at 4:00 pm Pacific}
+\end{center}
+
+\vspace{1cm}
+
+This Problem Set has no coding questions; all answers to the Problem Set go in this file.
+
+Some notation you might find useful here:
+
+\begin{itemize}
+    \item Subscripts can be written as $a_{index}$. Remember to use curly braces if you have a multicharacter expression as a subscript.
+\end{itemize}
+
+\newpage
+
+\section*{Problem One: Friends, Strangers, Enemies, and Hats}
+    i.
+    \begin{shaded}
+        Theorem: Consider a party with 36 attendees. Each person is wearing a hat and there are seven possible hat colors. For any pair of people at the party, either the pair are friends or strangers. There exists either 3 mutual friends or 3 mutual strangers that are wearing the same colored hat.
+
+        \vspace{4mm}
+
+        Proof: We need to show that in the party with 36 attendees, each wearing a hat that is one of the seven possible hat colors, there exists at least 3 mutual friends or 3 strangers wearing the same colored hats.
+
+        \vspace{4mm}
+
+        By the generalized pigeonhole principle, at least $\ceil{36/7}=6$ people will wear the same colored hat. Assume without loss of generality, the hats are colored bole.
+
+        \vspace{4mm}
+
+        Consider these 6 people as a 6-clique. By the Theorem of Friends and Strangers, there exists either 3 mutual friends or 3 mutual strangers or both in this 6-clique. Since these 6 people are wearing bole colored hats, we see that there exists either 3 mutual friends or 3 mutual strangers wearing the same colored hats, which is what we wanted to show. \qedsymbol
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        Theorem: Consider a party with 17 attendees. For each pair of people, either those people are strangers, friends or enemeies. There exists 3 mutual friends, 3 mutual strangers or 3 mutual enemies in this party.
+
+        \vspace{4mm}
+
+        Proof: We want to show that there exists either 3 mutual friends, 3 mutual strangers or 3 mutual enemies in the party. To do so, conisder the 17 attendees party as a 17-clique and that the edges are colored either red, denoting enemies, blue, denoting strangers, and green, denoting friends. We need to show that there exists a triangle of the same color, out of the 3 possible colors.
+
+        \vspace{4mm}
+
+        Consider an arbitrary node $x$ in the 17-clique. It is incident to 16 edges and there are three possible colours for those edges. As such, by the generalized pigeonhole principle, at least $\ceil{16/3}=6$ of these edges must be of the same colour. Without loss of generality, assume those edges to be blue.
+
+        \vspace{4mm}
+        Let $r,s,t,u,v,w$ be six of the nodes adjacent to node x along a blue edge.
+
+        \vspace{4mm}
+        If any of the edges, namely, $\{r,s\}$, $\{r,t\}$, $\{r,u\}$, $\{r,v\}$, $\{r,w\}$, $\{s,t\}$, $\{s,u\},\{s,v\},\{s,w\},\{t,u\},\{t,v\},\{t,w\},\{u,v\},\{u,w\}$ and $\{v,w\}$ are coloured blue, then one of those edges plus the two edges connecting back to node $x$ forms a blue triangle.
+
+        \vspace{4mm}
+        If none of those edges are blue, the remaining 6 nodes will form a 6-clique in which every edge is coloured either red or green. By the Theorem on Friends and Strangers, there must be a triangle of red edges or green edges or both.
+
+        \vspace{4mm}
+        As such, we have shown that in a 17-clique, you can always find three mutual friends or three mutual strangers or three mutual enemies. \qedsymbol
+
+%        Consider an arbitrary node $v$ in the 17-clique. It is incident to 16 edges and there are 3 possible colors. By the generalized pigeonhole principle, at least $\ceil{16/3}=6$ of these edges are of the same color. Assume without loss of generality, that these edges are colored red. 
+
+        \vspace{4mm}
+
+%        We can now view $v$ and the 6 nodes incident on the red colored edges to $v$ as a 7-clique.
+        %Consider an arbitrary edge $e$ in the 7-clique that is not incident to $v$. If $e$ is colored red, then there exists a red triangle in the smaller 7-clique and by extension, the larger 17-clique. If instead, none of the edges not incident to $v$ are red, we can form a 6-clique consisting of the nodes in the 7-clique, excluding $v$.
+
+        \vspace{4mm}
+
+%        Since we know that none of the edges in the 6-clique are red, there are only 2 possible colors of green and blue to color these edges. By the Theorem of Friends and Strangers, within a 6-clique where every edge is colored with one of either 2 colors, then there must exist a triangle of either color or both. In other words, we see that there must exist either a blue or green triangle within the smaller 6-clique and by extension, the original 17-clique. Overall, we see that there either exists a red triangle or a blue triangle or a green triangle in the 17-clique, which is what we wanted to show. \qedsymbol
+    \end{shaded}
+
+\newpage
+
+\section*{Problem Two: Recurrence Relations}
+Fill in the blanks to Problem Two below.
+
+ \begin{center}
+        \begin{boxedminipage}{0.9\textwidth}
+            \emph{Theorem:} For all natural numbers $n$, we have $a_n = 2^n$.
+            \\ \emph{Proof: } Let $P(n)$ be the statement ``$a_n = 2^n$.'' We will prove by induction that $P(n)$ holds for all $n \in \mathbb{N}$, from which the theorem follows. \\ As our base case, we prove $P(0)$, that $a_{0}=2^{0}$. To see this, $a_{0}=1=2^{0}$. \\ For our inductive step, assume for some arbitrary $k \in \mathbb{N}$ that $P(k)$ is true, meaning that $a_{k}=2^{k}$. We need to show $P(k+1)$, meaning that $a_{k+1}=2^{k+1}$. To see this, note that 
+            \begin{equation*}
+                \begin{split}
+                    a_{k+1} &= 2a_{k} \\
+                       &= 2(2^{k}) \text{(by our IH)}\\
+                       &= 2^{k+1}.
+                \end{split}
+            \end{equation*}
+            Therefore, we see that $a_{k+1}=2^{k+1}$, so $P(k+1)$ is true, completing the induction. \qedsymbol
+         \end{boxedminipage}
+\end{center}
+
+\newpage
+
+\section*{Problem Three: Stacking Cans}
+    i.
+    \begin{shaded}
+        Theorem: For all natural numbers $n\geq1$, we have $h_{n}=3n(n-1)+1$.
+
+        \vspace{4mm}
+
+        Proof: Let $P(n)$ be the statement "$h_{n}=3n(n-1)+1$". We will prove by induction that $P(n)$ holds for all $n\in\mathbb{N},n\geq1$, from which the theorem follows.
+
+        \vspace{4mm}
+
+        As our base case, we prove $P(1)$, that $h_{1}=3(1)(1-1)+1$. To see this, $h_{1}=1=3(0)+1$.
+
+        \vspace{4mm}
+
+        For our inductive step, assume for some arbitrary $k\in\mathbb{N},k\geq1$, that $P(k)$ is true, meaning that $h_{k}=3k(k-1)+1$. We need to show $P(k+1)$, that is, $h_{k+1}=3(k+1)(k)+1$.
+        $$
+            \begin{aligned}
+                h_{k+1} &= h_{k} + 6k \\
+                        &= 3(k)(k-1)+1 + 6k \\
+                        &= 3k^{2}-3k+1+6k \\
+                        &= 3k^{2}+3k+1 \\
+                        &= 3(k+1)(k)+1
+            \end{aligned}
+        $$
+        Therefore, we see that $h_{k+1}=3(k+1)(k)+1$, so $P(k+1)$ is true, completing the induction. \qedsymbol
+    \end{shaded}
+    
+    ii. Fill in the blanks to Problem Three, part ii. below.
+    \begin{shaded}
+    \begin{itemize}
+     	\item A $0$-layer tower has 0 cans in it.
+        \item A $1$-layer tower has $1$ can in it.
+        \item A $2$-layer tower has $8$ cans in it.
+        \item A $3$-layer tower has $27$ cans in it.
+        \item A $4$-layer tower has 64 cans in it.
+        \item A $5$-layer tower has 125 cans in it.
+        \item A $6$-layer tower has 216 cans in it.
+        \item A $7$-layer tower has 343 cans in it.
+        \item A $8$-layer tower has 512 cans in it.
+        \item A $9$-layer tower has 729 cans in it.
+        \item A $10$-layer tower has 1000 cans in it.
+    \end{itemize}
+    \end{shaded}
+    
+    iii. Fill in the blank to Problem Three, part iii. below.
+    \begin{shaded}
+    An $n$-layer tower has $n^{3}$ cans in it.
+    \end{shaded}
+    
+    iv.
+    \begin{shaded}
+        Theorem: For all natural numbers $n$, we have that $t_{n}=n^{3}$.
+
+        \vspace{4mm}
+
+        Proof: Let $P(n)$ be the statement "$t_{n}=n^{3}$". We will prove by induction that $P(n)$ holds for all $n\in\mathbb{N}$, from which the theorem follows.
+
+        \vspace{4mm}
+
+        As our base case, we prove $P(0)$, that $t_{0}=0^{3}$. To see this, $t_{0}=0=0^{3}$.
+
+        \vspace{4mm}
+
+        For our inductive step, assume for some arbitray $k\in\mathbb{N}$ that $P(k)$ is true, meaning that $t_{k}=k^{3}$. We need to show that $P(k+1)$ is true, meaning that $t_{k+1}=(k+1)^{3} = k^{3}+3k^{2}+3k+1$. To show this, note that
+        $$
+            \begin{aligned}
+                t_{k+1} &= t_{k} + h_{k+1} \\
+                        &= k^{3} + 3k(k+1) + 1 \\
+                        &= k^{3} + 3k^{2} + 3k + 1
+            \end{aligned}
+        $$
+        Therefore, we see that $t_{k+1}=k^{3}+3k^{2}+3k+1$, so $P(k+1)$ is true, completing the induction.
+        \qedsymbol
+    \end{shaded}
+
+\newpage
+
+\section*{Problem Four: The Circle Game}
+    i.
+    \begin{shaded}
+        We want to show that for all circles with $k+1$ points labeled $+1$ and $k+1$ points labeled $-1$ on its boundary, there exists a starting position on the circle from which you can start and win the circle game.
+
+        \vspace{4mm}
+
+        We arbitrarily pick a circle with $k+1$ points labeled $+1$ and $k+1$ points labeled $-1$ on its boundary.
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        Proof: Let $P(n)$ be the statement "for all circles with $n$ points labeled $+1$ and $n$ points labeled $-1$ on its boundary, there exists a starting position on the circle from which you can start and win the circle game". We will prove by induction that $P(n)$ holds for all $n\in\mathbb{N}$, from which the theorem follows.
+
+        \vspace{4mm}
+
+        As a base case, we prove $P(0)$. Pick an arbitrary circle with $0$ points labeled $+1$ and 0 points labeled $-1$ on its boundary. Pick an arbitrary starting position on the circle. Since we are able to make it back to the starting point without passing through any numbered points, that is, we are able to make it back to the starting point without passing through more $-1$ points that $+1$ points, hence, we are able to make it back to the starting point without losing. We see that exists a starting point on the circle from which you can start and win the circle game, so $P(0)$ holds.
+
+        \vspace{4mm}
+
+        Next, pick a natural number $k\geq 0$ and assume $P(k)$ is true, that is, for all circles with $k$ points labeled $+1$ and $k$ points labeled $-1$ on its boundary, there exists a starting position on the circle from which you can start and win the circle game. We need to show $P(k+1)$ is true.
+
+        \vspace{4mm}
+
+        To do so, pick an arbitrary circle $C$ with $k+1$ points labeled $+1$ and $k+1$ points labeled $-1$ on its boundary. We need to show that there exists a starting point on the circle from which you can start and win the circle game. Pick an arbitrary point $u$ labeled $+1$ on this circle. Check its immediate labeled point $v$ in the clockwise direction. If $v$ is labeled $-1$, then remove points $v$ and $u$. Otherwise, repeat this process, replacing $u$ with $v$, until we are able to remove points $u$ and $v$.
+
+        \vspace{4mm}
+
+        Suppose that we have removed points $u$ and $v$ such that we have a circle $C'$ containing $k$ points labeled $+1$ and $k$ points labeled $-1$. By our earlier assumption of $P(k)$, we know that there exists a starting point in this circle $C'$ that we can start from and win the circle game. Let this winning starting point be $w$. Now, reintroduce our removed points $u$ and $v$ back into $C'$ to obtain our original circle $C$. This insertion of points $u$ and $v$ still ensures that in the clockwise path from $w$ back to itself, we do not encounter more $-1$ than $+1$ points. As $w$ remains a winning starting point in the larger circle $C$, and hence $P(k+1)$ is true, completing the induction. \qedsymbol
+    \end{shaded}
+    
+\newpage
+
+\section*{Problem Five: Regular Graphs}
+\begin{shaded}
+    Theorem: For all natural numbers $n$, there exists a $n$-regular graph containing exactly $2^{n}$ nodes.
+
+    \vspace{4mm}
+
+    Proof: Let $P(n)$ be the statement "there exists a $n$-regular graph containing exactly $2^{n}$ nodes". We will prove by induction that $P(n)$ holds for all $n\in\mathbb{N}$, from which the theorem follows.
+
+    \vspace{4mm}
+
+    As our base case, we prove $P(0)$, that is, there exists a $0$-regular graph containing exactly $2^{0}$ nodes. Consider any graph $F$ containing only 1 node. It is trivially true that $F$ is a $0$-regular graph containing only $1=2^{0}$ nodes.
+
+    \vspace{4mm}
+
+    For the inductive step, assume for some arbitrary $k\in\mathbb{N}$ that $P(k)$ is true, that is, there exists a $k$-regular graph $G$ containing exactly $2^{k}$ nodes. We will prove $P(k+1)$ that we can find a $k+1$-regular graph containing exactly $2^{k+1}$ nodes.
+
+    \vspace{4mm}
+
+    Consider graphs $G_{1}$ and $G_{2}$, which are copies of graph $G$. Connect each node in $G_{1}$ to exactly 1 unique node in $G_{2}$. This ensures that every node in $G_{1}$ and $G_{2}$ will have one additional edge, increasing their degree by 1. The resulting connected graph will have $2(2^{k})=2^{k+1}$ nodes, with each node having a degree of $k+1$, forming a $k+1$-regular graph, which is what we needed to show. Thus, $P(k+1)$ is true, completing the induction.        \qedsymbol
+\end{shaded}
+
+\newpage
+
+\section*{Problem Six: It'll All Even Out}
+    i.
+    \begin{shaded}
+        $P(n)$ is a predicate. It passes the Induction Proofwriting Checklist.
+
+        % ASK ANTHONY
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        $P(0)$ is true. Yes the base case is written correctly. 
+    \end{shaded}
+    
+    iii.
+    \begin{shaded}
+        $P(1)$ is not true. $P(1)$ is saying for any natural number $x_{n}$, $x_{n}$ is even, which is obviously false since there exists odd natural numbers. The inductive step is written incorrectly, since we cannot assume $P(1)$ to be true for all $k\in\mathbb{N}$. Speicifically, if $k$ was arbitrarily chosen to be 0, we would instead be trying to prove $P(1)$ and assuming $P(1)$ to be true then would be illegal. Our inductive hypothesis coupled with this choice of $k=0$, prevents us from assuming $P(1)$ to be true, which the writer requires in his proof.
+    \end{shaded}
+
+\newpage
+
+\section*{Optional Fun Problem: Egyptian Fractions}
+\begin{shaded}
+Write your answer to the Optional Fun Problem here.
+\end{shaded}
+
+    
+\end{document}

@@ -158,38 +158,65 @@ Here are some symbols that may be useful for this PSet. If you are using \LaTeX,
 \section*{Problem Seven: Yablo's Paradox}
     i.
     \begin{shaded}
-        \begin{itemize}
-            \item 
                 Theorem: There does not exist a natural number $n$ where the statement $S_{n}$ is true.
-            \item 
-                Proof: We wish to show that there does not a natural number $n$ where the statement $S_{n}$ is true. Assume, for the sake of contradiction, that there exists a natural number $n$ where the statement $S_{n}$ is true. 
-            \item
-                Since $S_{n}$ is true, we know that for any natural number $m$, such that $m>n$, the statement $S_{m}$ is false. This allows us to conclude that the statement $S_{n+1}$ is false. Since statement $S_{n+1}$ is false, we know that there exists some natural number $l$, such that $l>n+1$, where the statement $S_{l}$ is true.
-            \item 
-                However, this is impossible due to our prior assumption and the fact that $l>n$, which implies that the statement $S_{l}$ must be false. We have arrived at a contradiction and so our assumption must have been wrong. Therefore, there does not exist a natural number $n$ where the statement $S_{n}$ is true. $\blacksquare$
-        \end{itemize}
+
+                \vspace{4mm}                
+
+                Proof: We wish to show that there does not a natural number $n$ where the statement $S_{n}$ is true. Assume, for the sake of contradiction, that there exists a natural number $n$ where the statement $S_{n}$ is true.
+
+                \vspace{4mm}
+
+                Since $S_{n}$ is true, we know that for any natural number $m$, such that $m>n$, the statement $S_{m}$ is false. This allows us to conclude that the statement $S_{n+1}$ is false. 
+
+                \vspace{4mm}
+                
+                Since statement $S_{n+1}$ is false, we know that there exists some natural number $l$, such that $l>n+1$, where the statement $S_{l}$ is true.
+
+                \vspace{4mm}
+
+                However, this is impossible due to our prior assumption and the fact that $l>n$, which implies that the statement $S_{l}$ must be false.
+                
+                \vspace{4mm} 
+                
+                We have arrived at a contradiction and so our assumption must have been wrong. Therefore, there does not exist a natural number $n$ where the statement $S_{n}$ is true. $\blacksquare$
     \end{shaded}
     
     ii.
     \begin{shaded}
-        \begin{itemize}
-            \item 
                 Theorem: There does not exist a natural number $n$ where the statement $S_{n}$ is false.
-            \item 
+
+                \vspace{4mm}
+
                 Proof: We want to show that there does not exist a natural number $n$ where the statement $S_{n}$ is false. Assume for the sake of contradiction that there exists a natural number $n$ such that the statement $S_{n}$ is false.
-            \item 
-                Since the statement $S_{n}$ is false, we know that there must exist a natural number $m$, such that $m>n$, where the statement $S_{m}$ is true. Since $S_{m}$ is true, we know that for any natural number $l$, such that $l>m$, the statement $S_{l}$ is false. Similar the the previous question, since $S_{l}$ is false, there must exist a natural number $o$, such that $o>l$, where the statement $S_{o}$ is true. However, this is impossible due to the earlier fact that since $o>m$, the statement $S_{o}$ must be false. We have arrived at a contradiction, which means our inital assumption must have been wrong. Therefore, there does not exist a natural number $n$ where the statement $S_{n}$ is false. $\blacksquare$
-        \end{itemize}
+
+                \vspace{4mm}
+
+                Since the statement $S_{n}$ is false, we know that there must exist a natural number $m$, such that $m>n$, where the statement $S_{m}$ is true.
+
+                \vspace{4mm} 
+
+                Since $S_{m}$ is true, we know that for any natural number $l$, such that $l>m$, the statement $S_{l}$ is false.
+                
+                \vspace{4mm}                
+
+                Similar the the previous question, since $S_{l}$ is false, there must exist a natural number $o$, such that $o>l$, where the statement $S_{o}$ is true.
+                
+                \vspace{4mm}
+
+                However, this is impossible due to the earlier fact that since $o>m$, the statement $S_{o}$ must be false.
+               
+                \vspace{4mm}
+
+                We have arrived at a contradiction, which means our inital assumption must have been wrong. Therefore, there does not exist a natural number $n$ where the statement $S_{n}$ is false. $\blacksquare$
     \end{shaded}
     
     iii.
     \begin{shaded}
-        \begin{itemize}
-                        \item 
                             Since there are no statements after $T_{9,999,999,999}$, this statement is vacuosly true.
-                        \item 
+
+                            \vspace{4mm}
+
                             Any statement $T_{n}$, where $0<=n<9,999,999,999$, is false, since if they were true, it must mean that $T_{9,999,999,999}$ is false, which is impossible since as mentioned earlier, it is vacuosly true.
-        \end{itemize}
     \end{shaded}
 
 \newpage
@@ -197,26 +224,28 @@ Here are some symbols that may be useful for this PSet. If you are using \LaTeX,
 \section*{Problem Eight: Hereditary Sets}
     i.
     \begin{shaded}
-        \begin{itemize}
-            \item 
                 Theorem: There exists a hereditary set.
-            \item 
+
+                \vspace{4mm}
+
                 Proof: We wish to show that there exists a hereditary set. Let $S=\emptyset$. For $S$ to be a hereditary set, we need to show that every element in $S$ is also a hereditary set.
-            \item 
-                Since $S$ is the empty set and has no elements, the proposition that every element in $S$ is an hereditary set is vacuosly true. Therefore, $S$ itself is a hereditary set. $\blacksquare$
-        \end{itemize}
+
+                \vspace{4mm}
+
+                Since $S$ is the empty set and has no elements, the statement that every element in $S$ is an hereditary set is vacuosly true, which is what we wanted to show. $\blacksquare$
     \end{shaded}
         
     ii.
     \begin{shaded}
-        \begin{itemize}
-            \item 
                 Theorem: If $S$ is a hereditary set, then $\powerset{S}$ is also a hereditary set.
-            \item 
-                Proof: Pick an arbitrary set $S$ such that $S$ is a hereditary set. We want to show that $\powerset{S}$ is also a hereditary set. To do so, we need to show that any $y\in \powerset{S}$ is a hereditary set.
-            \item 
-                Pick an arbitrary $y\in \powerset{S}$. Since $y\in \powerset{S}$, $y$ must be a subset of $S$. Pick an arbitrary $x\in y$. Since $x\in y$, $x \in S$, which means that $x$ must also be a hereditary set. Since for all $x\in y$ is a hereditary set, y must also be a hereditary set. Therefore, any arbitrary $y\in \powerset{S}$ must also be a hereditary set, which is what we wanted to show. $\blacksquare$
-        \end{itemize}
+                
+                \vspace{4mm}
+
+                Proof: Pick an arbitrary set $S$ such that $S$ is a hereditary set. We want to show that $\powerset{S}$ is also a hereditary set. To do so, pick an arbitrary $y\in \powerset{S}$. We need to show that $y$ is also a hereditary set. To do so, pick an arbitrary $x\in y$. We need to show that $x$ is a hereditary set.
+                
+                \vspace{4mm}
+
+                Since $y\in \powerset{S}$, we know that $y\subseteq S$. Since $x \in y$ and $y\subseteq S$, we know that $x \in S$. Since $S$ is a hereditary set and $x\in S$, we know that $x$ is also a hereditary set, which is what we wanted to show. $\blacksquare$
     \end{shaded}
     
 \newpage
@@ -224,25 +253,25 @@ Here are some symbols that may be useful for this PSet. If you are using \LaTeX,
 \section*{Problem Nine: Tournament Champions}
     i.
     \begin{shaded}
-        \begin{itemize}
-            \item 
                 D is not a champion. E is a champion. $\blacksmiley$
-        \end{itemize}
     \end{shaded}
     
     ii.
     \begin{shaded}
-        \begin{itemize}
-            \item 
                 Theorem: If player $c$ won more games than anyone else in $T$ or is tied for winning the greatest number of games, then $c$ is a tournament champion.
-            \item
+                
+                \vspace{4mm}
+
                 Proof: Assume for the sake of contradiction that there exists a tournament $T$ such that there exists a player $c$ where c either won the most games in $T$ or is tied for winning the most games and $c$ is not a champion.
-            \item 
+
+                \vspace{4mm}
+
                 Let the number of games that $c$ won be an arbitrary natural number $x$. 
-                Since $c$ is not a tournament champion, there must exist a player $p$ such that $p$ won against $c$ and for every other player $q$, if $c$ won against $q$ then $p$ won against $q$. This implies that player $p$ has $x+1$ wins.
-            \item
+                Since $c$ is not a tournament champion, there must exist another player $p$ such that $p$ won against $c$ and for every player $q$ other than $p$ and $c$, if $c$ won against $q$ then $p$ won against $q$. This implies that player $p$ has $x+1$ wins, since $p$ beat $c$, on top of every player that $c$ had beat.
+                
+                \vspace{4mm}
+
                 This is impossible, due to earlier assumption that $c$ must have either the most wins or is tied for the most wins. We have arrived at a contradiction and hence, our assumption must have been wrong. Therefore, if player $c$ won more games or is tied for winning the most number of games, then $c$ is a tournament champion. $\blacksquare$
-        \end{itemize}
     \end{shaded}
     
 \newpage
@@ -250,10 +279,18 @@ Here are some symbols that may be useful for this PSet. If you are using \LaTeX,
 \section*{Optional Fun Problem: Insufficient Connectives}
 
 \begin{shaded}
-    \begin{itemize}
-        \item 
             Theorem: We cannot express every possible propositional logic formula using just $\leftrightarrow$ and $\bot$.
-    \end{itemize}
-\end{shaded}
-    
+
+            \vspace{4mm}
+
+            Proof: Assume for the sake of contradiction that we can express every propositional logic formula using just $\leftrightarrow$ and $\bot$.
+
+            \vspace{4mm}
+
+            Using just $\leftrightarrow$ and $\bot$, we can only generate $\neg$, with $\neg p$ as $p\leftrightarrow\bot$, and $\top$, with $\bot\leftrightarrow\bot$. We are however, unable to generate $\to$, which is required to express the remaining two other connectives $\wedge$ and $\vee$. Since we cannot generate all the logical connectives from just $\leftrightarrow$ and $\bot$, we cannot express every possible propositional logic formula with just these two connectives.
+
+            \vspace{4mm}
+
+           We have arrived at a contradiction and hence our initial assumption must have been wrong. Therefore, we cannot express every possible propositional logic formula using just $\leftrightarrow$ and $\bot$. $\blacksquare$
+        \end{shaded}
 \end{document}

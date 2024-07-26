@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1720649953.45969 "/home/averageandyyy/workspace/CS103/PS2/template.tex" "template.pdf" "template" 1720649954.13138 0
-  "/home/averageandyyy/workspace/CS103/PS2/template.tex" 1720649953.22684 11395 332ade95d1c40666c92ad72799550f76 ""
+["pdflatex"] 1720762390.31613 "/home/averageandyyy/workspace/CS103/PS2/template.tex" "template.pdf" "template" 1720762391.0253 0
+  "/home/averageandyyy/workspace/CS103/PS2/template.tex" 1720762390.06472 12484 d3121f67c802d805da2da2e9c577b246 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc" 1558214095 7631 5169ff1acd97ff1c4ab83563c99f96f4 ""
@@ -238,9 +238,9 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1720507934 5483424 3a26e88fdc3d1845386b5f37bdbd5d64 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1720508045 8239323 ced2b287246770caa3bcc3311694c475 ""
   "/usr/local/texlive/2024/texmf.cnf" 1720507929.66219 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "template.aux" 1720649954.05484 197 e0dacca5ca789cf17eec09abca02d54c "pdflatex"
-  "template.out" 1720649953.97084 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "template.tex" 1720649953.22684 11395 332ade95d1c40666c92ad72799550f76 ""
+  "template.aux" 1720762390.93672 197 e0dacca5ca789cf17eec09abca02d54c "pdflatex"
+  "template.out" 1720762390.85272 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "template.tex" 1720762390.06472 12484 d3121f67c802d805da2da2e9c577b246 ""
   (generated)
   "template.aux"
   "template.log"
