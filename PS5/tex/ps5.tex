@@ -1,0 +1,306 @@
+%
+% LaTeX Problem Set Template originally designed
+% by former CS103 TA Sachin Padmanabhan, with updates,
+% edits, and simplifications by the lovely folks below.
+%
+% Updated for Fall 2018 by Michael Zhu
+% Updated for Fall 2019 by Joshua Spayd
+% Updated for Fall 2020 by Lucy Lu
+% Updated for Winter/Spring 2021 by Cynthia Bailey Lee
+% Updated for Fall 2021 by Grant McClearn
+% Commands slimmed down and simplified in Fall 2022 by Keith Schwarz
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathdots}
+\usepackage{braket}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{listings}
+\PassOptionsToPackage{usenames,dvipsnames}{color}  %% Allow color names
+\usepackage{pdfpages}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+\usepackage{framed}
+\usepackage{wasysym}
+\usepackage[thinlines]{easytable}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+
+\title{CS 103: Mathematical Foundations of Computing\\Problem Set \#5}
+\author{Cheng Jia Wei Andy, Xiang Qiuyu}
+\date{\today}
+
+% Running author based on https://tex.stackexchange.com/questions/68308/how-to-add-running-title-and-author#answer-68310
+\makeatletter
+\let\runauthor\@author
+\makeatother
+
+\lhead{\runauthor}
+\chead{Problem Set 6}
+\rhead{\today}
+\lfoot{}
+\cfoot{CS 103: Mathematical Foundations of Computing --- Summer 2024}
+\rfoot{\thepage}
+
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\pd}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\powerset}[1]{\wp\left(#1\right)}
+\newcommand{\suchthat}{\ \vert \ }
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\reals}{\mathbb{R}}
+\renewcommand{\qed}{\blacksquare}
+\newcommand{\accepts}{\text{ accepts }}
+\newcommand{\rejects}{\text{ rejects }}
+\newcommand{\loopson}{\text{ loops on }}
+\newcommand{\haltson}{\text{ halts on }}
+\newcommand{\encoded}[1]{\left\langle#1\right\rangle}
+\newcommand{\rlangs}{\mathbf{R}}
+\newcommand{\relangs}{\mathbf{RE}}
+\newcommand{\corelangs}{\text{co-}\mathbf{RE}}
+\newcommand{\plangs}{\mathbf{P}}
+\newcommand{\nplangs}{\mathbf{NP}}
+
+\renewcommand{\labelitemii}{$\bullet$}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newenvironment{prf}{{\bfseries Proof.}}{\qedsymbol}
+\renewcommand{\emph}[1]{\textit{\textbf{#1}}}
+\newcommand{\annotate}[1]{\textit{\textcolor{blue}{#1}}}
+\usepackage{mdframed}
+\usepackage{float}
+
+\makeatother
+
+\definecolor{shadecolor}{gray}{0.95}
+
+\theoremstyle{plain}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{plain}
+\newtheorem*{claim}{Claim}
+
+\theoremstyle{definition}
+\newtheorem*{answer}{Answer}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{thm}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\setlength{\parindent}{0pt}
+
+\pagestyle{fancy}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\usepackage{boxedminipage}
+\newenvironment{blank}{\colorbox{shadecolor}{\strut \underline{\ \ \ \ \ }}}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+  \emph{Due Friday, August 4 at 4:00 pm Pacific}
+\end{center}
+
+Do not put your answers to Problem 1 on Problem 2 in this file. You'll submit those separately on Gradescope.
+
+Here's a quick reference of symbols you may want to use in this problem set.
+
+\begin{itemize}
+    \item Alphabets are written as $\Sigma$.
+    \item The set of all strings over $\Sigma$ is denoted $\Sigma^\star$
+    \item The empty string is written as $\varepsilon$. The "var" here refers to a "variant" of the letter epsilon; that's the one we use in this class.
+    \item Subscripts are done as is $q_{137}$; superscripts are done as $a^{137}$.
+    \item You can make text render \texttt{like a typewriter} in text mode or in $\mathtt{math}$ mode.
+    \item You can write language complements as $\overline{L}$.
+\end{itemize}
+
+\pagebreak
+
+\section*{Problem Three: Much Ado About Nothing, Part II}
+    i.
+    \begin{shaded}
+        The automaton defined in Problem One, part ii accepts the empty string $\varepsilon$ since at that point, the walker and the dog are 0 units apart. Hence, $\varepsilon$ is part of its language.
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        Let $\Sigma = \{a, b\}$. We can define $L=\{a, b, ab\}$. Clearly, we see that $\varepsilon\notin L$.
+    \end{shaded}
+    % Cardinality
+    
+    iii.
+    \begin{shaded}
+        No, simply put, $\varepsilon$ is not a set and thus cannot be a subset of $L$.
+    \end{shaded}
+    
+    iv.
+    \begin{shaded}
+        Use the language defined in part ii. We see that $\varepsilon\nsubseteq L$ evaluates to true.
+    \end{shaded}
+    %Check office hours% 
+    v.
+    \begin{shaded}
+        No. Fundamentally, $\emptyset$ and $\varepsilon$ are different, with the former being a set containing no elements, and the latter being a string containing no characters.
+    \end{shaded}
+    
+    vi.
+    \begin{shaded}
+        No. The $\emptyset$ and the set containing $\varepsilon$ are different sets. We observe that $|\emptyset|=0$ while $|\{\varepsilon\}|=1$, since the former contains no elements while the latter contains a single element that is the empty string.
+    \end{shaded}
+
+\newpage
+
+\section*{Problem Four: For All The Marbles}
+
+    \begin{shaded}
+        Theorem: If the two bags start with the same number of marbles in them, then the second player can always win the game if they play correctly.
+
+        \vspace*{4mm}
+
+        Proof: Let $P(n)$ be the statement "for any two bags that start with $n$ marbles, the second player can always win the game if they play correctly". We will prove by induction that $P(n)$ holds for all $n\in\mathbb{N}$, from which the theorem follows.
+
+        \vspace*{4mm}
+
+        As a base case, we prove $P(0)$, that is, starting with two bags of 0 marbles, the second player can win if they play correctly. As the game begins with the first player with no marbles in both bags, the first player loses and the second player wins, so $P(0)$ holds.
+
+        \vspace*{4mm}
+
+        For our inductive step, assume for some arbitrary $k\in\mathbb{N}$ that $P(0),\dots$, and $P(k)$ are true. We will prove that $P(k+1)$ is true, that the second player can always win the game if they play properly when the two bags start with the same number of marbles in them.
+
+        \vspace*{4mm}
+
+        As the game begins with the first player, let $x$ be an arbitrary nonzero positve integer representing the number of marbles the first player removes from a bag, such that $x\leq k+1$. The second player will follow with the same removal but on the second bag. At this point, the game has 2 bags, each containing $k+1-x$ marbles.
+
+        \vspace*{4mm}
+
+        Since $0\leq k+1-x\leq k$, by our inductive hypothesis, the second player will always win the game if they play correctly. Thus $P{k+1}$ holds, completing the induction. \qedsymbol
+    \end{shaded}
+    
+\newpage
+
+\section*{Problem Five: Monoids and Kleene Stars}
+    i.
+    \begin{shaded}
+        For the finite monoid, we define $M=\{\varepsilon\}$.
+        For the infinite monoid, we define $\Sigma=\{\varepsilon, a\}$ and $M=\Sigma^{*}$.
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        Proof: Let $P(n)$ be the statement "for all $m\in\mathbb{N}$", we have $L^{n}L^{m}=L^{n+m}$. We will prove by induction that $P(n)$ holds for all $n\in\mathbb{N}$, from which the theorem follows.
+
+        \vspace*{4mm}
+
+        As a base case, we will prove $P(0)$. Pick an arbitrary natural number $m$. Observe that by the identity language for concatenation, $L^{0}L^{m}=\{\varepsilon\}L^{m}=L^{m}=L^{0+m}$, thus, $P(0)$ holds.
+
+        \vspace*{4mm}
+
+        Pick another arbitrary natural number $m$. For our inductive step, assume for some $k\in\mathbb{N}$ that $P(k)$ is true, that is, $L^{k}L^{m}=L^{k+m}$. We will prove that $P(k+1)$ is true, that is, $L^{k+1}L^{m}=L^{k+1+m}$. Observe that $L^{k+1}=LL^{k}$. As such, we see that $L^{k+1}L^{m}=LL^{k}L^{m}$. Since $P(k)$ is true, we see that $L^{k}L^{m}=L^{k+m}$. This, coupled with the associativity of language concatenation, implies that $L^{k+1}L^{m}=LL^{k+m}=L^{k+1+m}$, as required. We see that $P(k+1)$ is true, thereby completing the induction.
+    \end{shaded}
+    
+    
+    iii.
+    \begin{shaded}
+        Proof: We want to show that $L*$ is a monoid over $\Sigma$. Equivalently, we want to show $L^{*}L^{*}\subseteq L^{*}$ and $\varepsilon\in L^{*}$. By definition of Kleene Stars, there exists a natural number $n$, namely $n=0$, such that $\varepsilon\in L^{0}$, since $L^{0}=\{\varepsilon\}$, which implies $\varepsilon\in L^{*}$.
+        
+        \vspace*{4mm}
+        
+        To show that $L^{*}L^{*}\subseteq L^{*}$, pick an arbitrary $x\in L^{*}L^{*}$. We need to show that $x\in L*$.
+
+        \vspace*{4mm}
+
+        Since $x\in L^{*}L^{*}$, we see that there exists $w_{1}\in L^{*}$ and $w_{2}\in L^{*}$ sucht that $x=w_{1}w_{2}$. Since $w_{1}\in L^{*}$, this implies that there exists a $n\in\mathbb{N}$ such that $w_{1}\in L^{n}$. Similary, there exists a $m\in\mathbb{N}$ such that $w_{2}\in L^{m}$. Since $w_{1}\in L^{n}$ and $w_{2}\in L^{m}$, by language concatenation, we see that $w_{1}w_{2}=x\in L^{n}L^{m}$. From the theorem proved in the previous part, we see that $x\in L^{n+m}$. 
+
+        \vspace*{4mm}
+
+        We see that there exists a natural number $o$, where $o=n+m$, such that $x\in L^{o}$, which by the definition of the Kleene Star, implies that $x\in L^{*}$. This, together with the fact that $\varepsilon\in L^{*}$, implies that $L^{*}$ is a monoid over $\Sigma$. \qedsymbol
+    \end{shaded}
+    
+    iv.
+    \begin{shaded}
+        Lemma: If $L\subseteq M$, then for all $n\in\mathbb{N}$, $L^{n}\subseteq M$.
+
+        \vspace*{4mm}
+
+        Proof: Let $P(n)$ be the statement "$L^{n}\subseteq M$". We will prove by induction that $P(n)$ is true for all $n\in\mathbb{N}$, under the assumption that $L\subseteq M$,from which the lemma follows.
+
+        \vspace*{4mm}
+
+        As a base case, we prove $P(0)$, that is, $L^{0}\subseteq M$. Observe that $L^{0}=\{\varepsilon\}\subseteq M$. Hence, $P(0)$ is true.
+
+        \vspace*{4mm}
+
+        For our inductive step, assume for some arbitrary $k\in\mathbb{N}$, that $P(k)$ is true, that is, $L^{k}\subseteq M$. We want to show $P(k+1)$ is true, that is, $L^{k+1}\subseteq M$ is true.
+
+        \vspace*{4mm}
+
+        To do so, pick an arbitrary $w\in L^{k+1}$. We need to show that $w\in M$. Since $w\in L^{k+1}$, we see that $w\in L^{k}L$. Since $w\in L^{k}L$, there exists $w_{1}\in L^{k}$ and $w_{2}\in L$ such that $w_{1}w_{2}=w$. By our inductive hypothesis of $P(k)$ and $L\subseteq M$, we know that $L^{k}\subseteq M$, in other words, $w_{1},w_{2}\in M$. By language concatenation, this implies that $w_{1}w_{2}\in MM$ and by definition of monoids, $w_{1}w_{2}\in M$. Since $w=w_{1}w_{2}$, this implies that $w\in M$ as required. Hence, we see that $P(k+1)$ is true, completing the induction.
+
+        \vspace*{4mm}
+
+        Theorem: If $L\subseteq M$, then $L^{*}\subseteq M$.
+
+        \vspace*{4mm}
+
+        Proof: Pick an arbitrary $w\in L^{*}$. We need to show that $w\in M$. Since $w\in L^{*}$, there exists a natural number $n$ such that $w\in L^{n}$. By our lemma above, we know that for all $m\in\mathbb{N}$ that $L^{m}\subseteq M$, which implies that $L^{n}\subseteq M$. Since $w\in L^{n}$, we see that $w\in M$ as required. \qedsymbol
+    \end{shaded}
+    
+\newpage
+
+\section*{Problem Six: Concatenation, Kleene Stars, and Complements}
+    i.
+    \begin{shaded}
+        Claim: If $L$ is a finite, non-empty language and $k$ is a positve natural number, then $|L|^{K}=|L^{k}|$.
+
+        \vspace*{4mm}
+
+        Disproof: We will show that the negation of this statement is true, namely, that there exists a finite, non-empty language $L$ and some positve natural number $k$ such that $|L|^{k}\neq|L^{k}|$.
+
+        \vspace*{4mm}
+
+        Pick $L=\{\varepsilon, a\}$ and $k=2$. Notice that $L^{2}=\{\varepsilon, a, aa\}$. We see that $|L|^{2}=4$ and $|L^{2}|=3$. As such, we see that $|L|^{2}\neq|L^{2}|$ as required. \qedsymbol
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        Claim: There exists a language $L$ such that $\overline{L^{*}}=\overline{L}^{*}$.
+
+        \vspace*{4mm}
+
+        Disproof: We will show that the negation of this statement is true, that is, for all languages $L$, $\overline{L^{*}}\neq\overline{L}^{*}$. To do so, pick an arbitrary language $L$. Observe that $\overline{L^{*}}=\Sigma^{*}-L^{*}$ which implies that $\overline{L^*}$ does not contain the empty string. On the other hand, observe that $\overline{L}^{*}$ is a Kleene Star and will by definition contain the empty string. As such, we see that $\overline{L^{*}}\neq\overline{L}^{*}$, which is what we wanted to show. \qedsymbol
+    \end{shaded}
+    
+\newpage
+
+\section*{Optional Fun Problem: Doubling Down}
+\begin{shaded}
+Write your answer to the Optional Fun Problem here.
+\end{shaded}
+
+\end{document}
