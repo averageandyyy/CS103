@@ -1,0 +1,285 @@
+%
+% LaTeX Problem Set Template originally designed
+% by former CS103 TA Sachin Padmanabhan, with updates,
+% edits, and simplifications by the lovely folks below.
+%
+% Updated for Fall 2018 by Michael Zhu
+% Updated for Fall 2019 by Joshua Spayd
+% Updated for Fall 2020 by Lucy Lu
+% Updated for Winter/Spring 2021 by Cynthia Bailey Lee
+% Updated for Fall 2021 by Grant McClearn
+% Commands slimmed down and simplified in Fall 2022 by Keith Schwarz
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathdots}
+\usepackage{braket}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{listings}
+\PassOptionsToPackage{usenames,dvipsnames}{color}  %% Allow color names
+\usepackage{pdfpages}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+\usepackage{framed}
+\usepackage{wasysym}
+\usepackage[thinlines]{easytable}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\usepackage{mathrsfs}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+
+\title{CS 103: Mathematical Foundations of Computing\\Problem Set \#6}
+\author{Cheng Jia Wei Andy, Xiang Qiuyu}
+\date{\today}
+
+% Running author based on https://tex.stackexchange.com/questions/68308/how-to-add-running-title-and-author#answer-68310
+\makeatletter
+\let\runauthor\@author
+\makeatother
+
+\lhead{\runauthor}
+\chead{Problem Set 6}
+\rhead{\today}
+\lfoot{}
+\cfoot{CS 103: Mathematical Foundations of Computing --- Summer 2024}
+\rfoot{\thepage}
+
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\pd}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\powerset}[1]{\wp\left(#1\right)}
+\newcommand{\suchthat}{\ \vert \ }
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\reals}{\mathbb{R}}
+\renewcommand{\qed}{\blacksquare}
+\newcommand{\accepts}{\text{ accepts }}
+\newcommand{\rejects}{\text{ rejects }}
+\newcommand{\loopson}{\text{ loops on }}
+\newcommand{\haltson}{\text{ halts on }}
+\newcommand{\encoded}[1]{\left\langle#1\right\rangle}
+\newcommand{\rlangs}{\mathbf{R}}
+\newcommand{\relangs}{\mathbf{RE}}
+\newcommand{\corelangs}{\text{co-}\mathbf{RE}}
+\newcommand{\plangs}{\mathbf{P}}
+\newcommand{\nplangs}{\mathbf{NP}}
+
+\renewcommand{\labelitemii}{$\bullet$}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newenvironment{prf}{{\bfseries Proof.}}{\qedsymbol}
+\renewcommand{\emph}[1]{\textit{\textbf{#1}}}
+\newcommand{\annotate}[1]{\textit{\textcolor{blue}{#1}}}
+\usepackage{mdframed}
+\usepackage{float}
+
+\makeatother
+
+\definecolor{shadecolor}{gray}{0.95}
+
+\theoremstyle{plain}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{plain}
+\newtheorem*{claim}{Claim}
+
+\theoremstyle{definition}
+\newtheorem*{answer}{Answer}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{thm}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\setlength{\parindent}{0pt}
+
+\pagestyle{fancy}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\usepackage{boxedminipage}
+\newenvironment{blank}{\colorbox{shadecolor}{\strut \underline{\ \ \ \ \ }}}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+  \emph{Due Friday, August 11 at 4:00 pm Pacific}
+\end{center}
+
+Some symbols you may want to use here:
+
+\begin{itemize}
+
+\item The empty string is denoted $\varepsilon$.
+\item Alphabets are denoted $\Sigma$.
+\item The language of an automaton is denoted $\mathscr{L}(D)$.
+\item You can say two strings are distinguishable relative to $L$ by writing $x \not\equiv_L y$.
+\item You can write a character in monospace \texttt{in text mode} and $\mathtt{in math mode}$.
+\item The Optional Fun Problem uses the notation $\mathscr{F}$.
+
+\end{itemize}
+
+\newpage
+
+Problems One and Two are to be answered by editing the appropriate files
+(\texttt{RegularExpressions.regexes} and \texttt{Grammars.cfgs}, respectively).
+Do not put your answers to Problems One and Two in this file.
+
+\newpage
+
+\section*{Problem Three: Finite Languages}
+\begin{shaded}
+    Pick an arbitrary finite language $L$. Let $n$ be the number of strings in $L$, that is $|L|=n$. We can view $L$ as containing $n$ strings, that is, $L=\{s_{1},s_{2},\dots,s_{n}\}$. A trivial regular expression for $L$ would then be $s_{1} | s_{2}| \dots | s_{n}$, which ensures that only the $n$ strings in $L$ are accepted.
+
+    \vspace*{4mm}
+
+    Consider the edge case where $|L|=0$. The regular expression for $L$ would then be $\emptyset$, implying that no strings are accepted, as required.
+\end{shaded}
+
+\newpage
+
+\section*{Problem Four: Distinguishability}
+    i.
+    \begin{shaded}
+        1. $w=a$
+
+        \vspace*{4mm}
+
+        2. $w=\varepsilon$
+
+        \vspace*{4mm}
+
+
+        3. $w=\varepsilon$
+
+        \vspace*{4mm}
+
+
+        4. No such $w$.
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        1. $aa$ and $aaa$. Both already contain the substring $aa$.
+
+        \vspace*{4mm}
+
+        2. Yes.
+
+        \vspace*{4mm}
+
+        3. $aa$ and $aaa$.
+
+        \vspace*{4mm}
+
+        4. Yes.
+
+        \vspace*{4mm}
+
+        5. Not a distinguishing set. The two strings $abba$ and $abbababba$.
+
+        \vspace*{4mm}
+
+        6. Yes
+
+        \vspace*{4mm}
+
+        7. Not a distinguising set. The two strings are $\varepsilon$ and $b$.
+    \end{shaded}
+    
+    iii.
+    \begin{shaded}
+        Let $S=\{ab, a, b, baa\}$.
+
+        \vspace*{4mm}
+
+        $ab$ and $a$: $abba\in L$ while $aba\notin L$. $w=ba$ \\
+        $ab$ and $b$: $aba\notin L$ while $ba\in L$. $w=a$ \\
+        $ab$ and $baa$: $aba\notin L$ while $baaa\in L$. $w=a$ \\
+
+        \vspace*{4mm}
+
+        $a$ and $b$: $aa\notin L$ while $ba\in L$. $w=a$. \\
+        $a$ and $baa$: $aa\notin L$ while $baaa\in L$. $w=a$. \\
+
+        \vspace*{4mm}
+
+        $b$ and $baa$: $bb\notin L$ while $baab\in L$. $w=b$.
+    \end{shaded}
+    
+    iv.
+    \begin{shaded}
+        Theorem: L is not regular.
+
+        \vspace*{4mm}
+
+        Proof: Let $S=\{a^{n}b^{n}|n\in\mathbb{N}\}$. We will prove that $S$ is infinite and that $S$ is a distinguishing set for $L$.
+
+        \vspace*{4mm}
+
+        To see that $S$ is infinite, observe that $S$ contains one string for each natural number.
+
+        \vspace*{4mm}
+
+        To see that $S$ is a distinguishing set for $L$, pick arbitrary strings $a^{n}b^{n},a^{m}b^{m}\in S$ such that $n\neq m$. Let $w=a^{n}b^{n}$. It is trivial that $w\in\Sigma*$. Observe that $a^{n}b^{n}a^{n}b^{n}\notin L$ and $a^{m}b^{m}a^{n}b^{n}\in L$. Therefore, we see that $a^{n}a^{n}\not\equiv_L a^{m}b^{m}$, implying that $S$ is a distinguishing set, as required.
+
+        \vspace*{4mm}
+
+        Since $S$ is infinite and a distinguishing set for $L$, by the Myhill-Nerode Theorem, we see that $L$ is not regular. \qedsymbol
+    \end{shaded}
+    
+\newpage
+
+\section*{Problem Five: Brzozowksi's Theorem}
+    i.
+    \begin{shaded}
+        1. $aab$
+        
+        \vspace*{4mm}
+
+        2. $bbbaaa$
+
+        \vspace*{4mm}
+
+        3. $bba$
+    \end{shaded}
+    
+    ii.
+    \begin{shaded}
+        Proof: We want to show that L is not regular. It is given that $S$ is infinite, hence, we only need to show that $S$ is a distinguishing set for $L$. To do so, pick arbitrary strings $x,y\in S$ such that $x\neq y$. Since $x\neq y$, we know that $\partial_x L\ne \partial_y L$. Since $\partial_x L\ne \partial_y L$, we know that, without loss of generality, there exists a string $w$ such that $w\in\partial_x L$ and $w\notin\partial_y L$. This implies that $xw\in L$ and $yw\notin L$, which tells us that $x\not\equiv_L y$. Hence, we see that $S$ is a distinguishing set for $L$ as required. 
+
+        \vspace*{4mm}
+
+        Since $S$ is infinite and a distinguishing set for $L$, by the Myhill-Nerode Theorem, we see that $L$ is not regular. \qedsymbol
+    \end{shaded}
+
+\newpage
+
+\section*{Optional Fun Problem: Birget's Theorem}
+\begin{shaded}
+Write your answer to the Optional Fun Problem here.
+\end{shaded}
+
+\end{document}
